@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom'; // ← استدعاء useParams
 import { FaPlayCircle, FaStar, FaTimes } from 'react-icons/fa';
 import inceptionImg from '../assets/images/inception.jpg';
 import darkImg from '../assets/images/dark.jpg';
@@ -14,101 +15,27 @@ import ShawshankImg from '../assets/images/Shawshank.jpg';
 import DuneImg from '../assets/images/Dune.jpg';
 import OppenheimerImg from '../assets/images/Oppenheimer.jpg';
 import BarbieImg from '../assets/images/Barbie.jpg';
+
 const movies = [
-  {
-  title: 'Inception',
-  description: 'A mind-bending thriller by Christopher Nolan.',
-  image: inceptionImg, // بديل مباشر يعمل
-  rating: 4.8,
-},
- {
-  title: 'The Dark Knight',
-  description: 'Batman faces the Joker in Gotham City.',
-  image: darkImg, // يعمل
-  rating: 4.9,
-},
- {
-  title: 'Interstellar',
-  description: 'A space-time adventure beyond imagination.',
-  image: InterstellarImg, // بديل مباشر
-  rating: 4.7,
-},
-  {
-  title: 'Joker',
-  description: 'The origin story of the infamous Gotham villain.',
-  image: JokerImg,
-  rating: 4.5,
-},
- {
-  title: 'Avengers: Endgame',
-  description: 'The final battle against Thanos.',
-  image: AvengersImg,
-  rating: 4.6,
-},
- {
-  title: 'Spider-Man: No Way Home',
-  description: 'Spider-Man faces multiverse chaos.',
-  image: SpiderImg,
-  rating: 4.4,
-},
- {
-  title: 'The Matrix',
-  description: 'A hacker discovers a reality-bending truth.',
-  image: matrixImg,
-  rating: 4.7,
-},
-  {
-  title: 'Fight Club',
-  description: 'An underground fight club challenges society.',
-  image: FightImg,
-  rating: 4.6,
-},
- {
-  title: 'Pulp Fiction',
-  description: 'A series of intertwined criminal stories.',
-  image: PulpImg,
-  rating: 4.6,
-},
-  {
-  title: 'Forrest Gump',
-  description: 'The life journey of a simple man.',
-  image: ForrestImg,
-  rating: 4.8,
-},
-  {
-    title: 'The Shawshank Redemption',
-    description: 'Hope and friendship behind bars.',
-    image: ShawshankImg,
-    rating: 4.9,
-  },
-  {
-    title: 'The Godfather',
-    description: 'A mafia family’s rise and fall.',
-    image: 'https://i.imgur.com/Uzvny9I.jpg',
-    rating: 4.9,
-  },
-  {
-  title: 'Dune',
-  description: 'A noble family becomes embroiled in a war over a desert planet.',
-  image: DuneImg,
-  rating: 4.4,
-},
-{
-  title: 'Oppenheimer',
-  description: 'The dramatic story of the man behind the atomic bomb.',
-  image: OppenheimerImg,
-  rating: 4.6,
-},
- {
-  title: 'Barbie',
-  description: 'Barbie and Ken discover the real world beyond Barbie Land.',
-  image:BarbieImg,
-  rating: 4.0,
-},
- 
+  { title: 'Inception', description: 'A mind-bending thriller by Christopher Nolan.', image: inceptionImg, rating: 4.8 },
+  { title: 'The Dark Knight', description: 'Batman faces the Joker in Gotham City.', image: darkImg, rating: 4.9 },
+  { title: 'Interstellar', description: 'A space-time adventure beyond imagination.', image: InterstellarImg, rating: 4.7 },
+  { title: 'Joker', description: 'The origin story of the infamous Gotham villain.', image: JokerImg, rating: 4.5 },
+  { title: 'Avengers: Endgame', description: 'The final battle against Thanos.', image: AvengersImg, rating: 4.6 },
+  { title: 'Spider-Man: No Way Home', description: 'Spider-Man faces multiverse chaos.', image: SpiderImg, rating: 4.4 },
+  { title: 'The Matrix', description: 'A hacker discovers a reality-bending truth.', image: matrixImg, rating: 4.7 },
+  { title: 'Fight Club', description: 'An underground fight club challenges society.', image: FightImg, rating: 4.6 },
+  { title: 'Pulp Fiction', description: 'A series of intertwined criminal stories.', image: PulpImg, rating: 4.6 },
+  { title: 'Forrest Gump', description: 'The life journey of a simple man.', image: ForrestImg, rating: 4.8 },
+  { title: 'The Shawshank Redemption', description: 'Hope and friendship behind bars.', image: ShawshankImg, rating: 4.9 },
+  { title: 'The Godfather', description: 'A mafia family’s rise and fall.', image: 'https://i.imgur.com/Uzvny9I.jpg', rating: 4.9 },
+  { title: 'Dune', description: 'A noble family becomes embroiled in a war over a desert planet.', image: DuneImg, rating: 4.4 },
+  { title: 'Oppenheimer', description: 'The dramatic story of the man behind the atomic bomb.', image: OppenheimerImg, rating: 4.6 },
+  { title: 'Barbie', description: 'Barbie and Ken discover the real world beyond Barbie Land.', image: BarbieImg, rating: 4.0 },
 ];
 
-function Movies() {
+function Movies(props) {
+  const { category } = useParams(); // ← قراءته من الرابط، لن يؤثر على المحتوى حاليًا
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   const styles = {
@@ -181,24 +108,23 @@ function Movies() {
       alignItems: 'center',
       zIndex: 1000,
     },
-   modalContent: {
-  backgroundColor: '#222',
-  padding: '20px',
-  borderRadius: '12px',
-  width: '90%',
-  maxWidth: '350px', // ⬅️ صغرنا الحجم هنا
-  textAlign: 'center',
-  position: 'relative',
-  color: 'white',
-},
-modalImage: {
-  width: '100%',
-  borderRadius: '10px',
-  marginBottom: '15px',
-  height: '200px', // ⬅️ تصغير ارتفاع الصورة
-  objectFit: 'cover',
-},
-
+    modalContent: {
+      backgroundColor: '#222',
+      padding: '20px',
+      borderRadius: '12px',
+      width: '90%',
+      maxWidth: '350px',
+      textAlign: 'center',
+      position: 'relative',
+      color: 'white',
+    },
+    modalImage: {
+      width: '100%',
+      borderRadius: '10px',
+      marginBottom: '15px',
+      height: '200px',
+      objectFit: 'cover',
+    },
     closeIcon: {
       position: 'absolute',
       top: '15px',
